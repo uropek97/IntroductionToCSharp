@@ -10,6 +10,19 @@ namespace Lesson_2
     {
         static void Main(string[] args)
         {
+            SearchAvrTemp();
+
+            Console.ReadLine();
+        }
+        static void SearchAvrTemp()
+        {
+            Console.WriteLine("Введите минимальную температуру за сутки:");
+            double min = double.Parse(Console.ReadLine());
+            Console.WriteLine("Введите максимальную температуру за сутки:");
+            double max = double.Parse(Console.ReadLine());
+
+            double average = (min + max) / 2;
+            Console.WriteLine($"Среднесуточная температура: {average}");
         }
     }
 }
