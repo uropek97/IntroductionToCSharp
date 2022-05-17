@@ -6,19 +6,64 @@ namespace Lesson_2
     {
         static void Main(string[] args)
         {
-            bool average = SearchAvrTemp();
-            byte month = NameMonth();
-            IsEven();
-            //PrintReceipt();
-            IsRainyWinter(month, average);
-            ShowSchedule();
-
+            int input = -1;
+            double average = -273;
+            byte month = 0;
+            while (true)
+            {
+                Console.WriteLine("1 => Задча 1. Средняя температура");
+                Console.WriteLine("2 => Задча 2. Название месяца");
+                Console.WriteLine("3 => Задча 3. Чётность числа");
+                Console.WriteLine("4 => Задча 4. Чек");
+                Console.WriteLine("5 => Задча 5. Определение дождливая зими или другое");
+                Console.WriteLine("6 => Задча 6. Расписание офисов");
+                Console.WriteLine("0 => Выход из программы");
+                Console.Write("Выберите номер задачи: ");
+                input = int.Parse(Console.ReadLine());
+                if (input == 1)
+                {
+                    average = SearchAvrTemp();
+                }
+                else if (input == 2)
+                {
+                    month = NameMonth();
+                }
+                else if (input == 3)
+                {
+                    IsEven();
+                }
+                else if (input == 4)
+                {
+                    PrintReceipt();
+                }
+                else if (input == 5)
+                {
+                    if(month == 0 || average == -273)
+                    {
+                        Console.WriteLine("Прежде всего нужно выполнить первую задачу");
+                        continue;
+                    }
+                    IsRainyWinter(month, average);
+                }
+                else if (input == 6)
+                {
+                    ShowSchedule();
+                }
+                else if (input == 0)
+                {
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Нет такой задачи");
+                }
+            }
             Console.ReadLine();
         }
         /// <summary>
-        /// Задача 1. 
+        /// Задача 1. Средняя температура
         /// </summary>
-        static bool SearchAvrTemp()
+        static double SearchAvrTemp()
         {
             Console.Write("Введите минимальную температуру за сутки: ");
             double min = double.Parse(Console.ReadLine());
@@ -26,17 +71,10 @@ namespace Lesson_2
             double max = double.Parse(Console.ReadLine());
             double average = (min + max) / 2;
             Console.WriteLine($"Среднесуточная температура: {average}");
-            if (average > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return average;
         }
         /// <summary>
-        /// Задача 2.
+        /// Задача 2. Название месяца
         /// </summary>
         static byte NameMonth()
         {
@@ -65,7 +103,7 @@ namespace Lesson_2
             Декабрь
         }
         /// <summary>
-        /// Задача 3.
+        /// Задача 3. Чётность числа
         /// </summary>
         static void IsEven()
         {
@@ -85,31 +123,45 @@ namespace Lesson_2
             }
         }
         /// <summary>
-        /// Задача 4.
+        /// Задача 4. Чек
         /// </summary>
         static void PrintReceipt()
         {
-            Console.WriteLine("ООО \"Шериф\"");
-            Console.WriteLine("Супермаркет \"Шериф-{22}\"");
-            Console.WriteLine("Касса #{1}");
-            string highlight = "---------------------------";
+            string highlight = "----------------------------------------";
+            string city = "г.Бендеры";
+            string adres = "ул.Бендерского Восстания, 5А";
+            string typeOfOp = "Пополнение счёта";
+            string name = "Чебота Игорь Александрович";
+            long account = 2555_7894_4561_1234;//счёт от балды написан
+            string currency = "RUP";//Приднестровский рубль - RUP
+            int payment = 100;
+            int commission = 0;
+            int code = 285133645;//полагаю код операции как-то связан с предыдущими операциями, наверное в методе должен храниться какой-то счётчик
+            string paymentmeth = "наличными";
+            Console.WriteLine($"{"АГРОПРОМБАНК".PadLeft(23)}");
             Console.WriteLine(highlight);
-            Console.WriteLine("{type} No: {count}");
-            Console.WriteLine("Зал {numb}, КАССА: {numbcas} Чек: {1390871}");
-            Console.WriteLine("Кассир: {name}");
+            //на чеке дата и время, когда он выдан
+            Console.WriteLine(DateTime.Now);
+            Console.WriteLine($"{city}, {adres}");
+            Console.WriteLine($"{typeOfOp}");
+            Console.WriteLine($"Клиент {name.PadLeft(33)}");
+            Console.WriteLine($"Счёт {account.ToString().PadLeft(35)}");
+            Console.WriteLine($"Валюта пополнения {currency.PadLeft(22)}");
+            Console.WriteLine($"Сумма платежа {payment.ToString().PadLeft(26)}");
+            Console.WriteLine($"Сумма комиссии {commission.ToString().PadLeft(25)}");
+            Console.WriteLine($"Сумма операции {(payment + commission).ToString().PadLeft(25)}");
+            Console.WriteLine($"Код операции {code.ToString().PadLeft(27)}");
+            Console.WriteLine($"Оплата {paymentmeth.PadLeft(33)}");
             Console.WriteLine(highlight);
-            Console.WriteLine("{amount} {product}");
-            Console.WriteLine("space {amount}x{cost}={amount*cost}");
-            Console.WriteLine("{amountpoz} позиций {unknown}");
         }
         /// <summary>
-        /// Задача 5.
+        /// Задача 5. Определение дождливая зими или другое
         /// </summary>
         /// <param name="month">Номер месяца</param>
         /// <param name="avrTemp">Показатель среднесуточной температуры за день. Если больше нуля - true</param>
-        static void IsRainyWinter(byte month, bool avrTemp)
+        static void IsRainyWinter(byte month, double avrTemp)
         {
-            if ((month == 1 || month == 2 || month == 12) && avrTemp)
+            if ((month == 1 || month == 2 || month == 12) && avrTemp > 0)
             {
                 Console.WriteLine("Дождливая зима");
             }
@@ -119,7 +171,7 @@ namespace Lesson_2
             }
         }
         /// <summary>
-        /// Задача 6.
+        /// Задача 6. Расписание офисов
         /// </summary>
         static void ShowSchedule()
         {
@@ -130,6 +182,7 @@ namespace Lesson_2
             Console.WriteLine($"Офис номер один работает в: {(DayOfWeek)schedule1office}");
             Console.WriteLine($"Офис номер два работает в: {(DayOfWeek)schedule2office}");
             Console.Write("Введите битовую маску (1 число - воскресенье, 7 - понедельник): ");
+            //строку типа "1100111 приведёт к типу int в двоичном виде 
             int yourmask = Convert.ToInt32(Console.ReadLine(), 2);
             Console.WriteLine($"Офис работает в: {(DayOfWeek)yourmask}");
         }
