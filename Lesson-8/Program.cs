@@ -9,7 +9,7 @@ namespace Lesson_8
             //Properties.Settings.Default.UserName = String.Empty;
             if (string.IsNullOrEmpty(Properties.Settings.Default.UserName))
             {
-                Console.Write("Введите имя пользователя:");
+                Console.Write("Введите имя пользователя: ");
                 Properties.Settings.Default.UserName = Console.ReadLine();
                 Properties.Settings.Default.Save();
                 Console.Write("Возраст: ");
